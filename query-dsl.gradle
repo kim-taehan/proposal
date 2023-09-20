@@ -1,0 +1,19 @@
+import java.text.SimpleDateFormat
+
+//querydsl 추가 시작
+def querydslDir = "$buildDir/generated/querydsl"
+
+sourceSets {
+	main.java.srcDir querydslDir
+}
+tasks.withType(JavaCompile) {
+	options.generatedSourceOutputDirectory = file(querydslDir)
+}
+task querydslCopy {
+	doFirst{
+		copy {
+			from querydslDir
+			into "src/main/generated"
+		}
+	}
+}

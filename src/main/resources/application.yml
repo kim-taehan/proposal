@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/proposal_db
+    username: proposal
+    password: proposal
+    hikari:
+      connection-timeout: 30000 #maximum number of milliseconds that a client will wait for a connection
+      minimum-idle: 20 #minimum number of idle connections maintained by HikariCP in a connection pool
+      maximum-pool-size: 20 #maximum pool size
+      idle-timeout: 10000 #maximum idle time for connection
+      max-lifetime: 30000 # maximum lifetime in milliseconds of a connection in the pool after it is closed.
+      auto-commit: false #default auto-commit behavior.
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: false
+      #    open-in-view: false
+    show-sql: false
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        query.in_clause_parameter_padding: true
+        query.plan_cache_max_size: 64
+        query.plan_parameter_metadata_max_size: 16
+        format_sql: true
+        default_batch_fetch_size: 100 # Detail 적용 @BatchSize(size=100)
