@@ -11,14 +11,15 @@
             <tr>
                 <th>사번</th>
                 <th>이름</th>
+                <th>팀</th>
                 <th>수정일</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="user : ${users}">
-<!--                <td th:text="${user.id}"></td>-->
                 <td th:text="${user.username}"></td>
                 <td th:text="${user.realName}"></td>
+                <td th:text="${user.team?.teamName}"></td>
                 <td th:text="${user.baseData?.modifiedDate}"></td>
             </tr>
             </tbody>

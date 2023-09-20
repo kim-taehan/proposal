@@ -24,16 +24,21 @@ public class User extends BaseEntity {
     private String username;
     
     /* spring security */
-    @Column(unique=true, length = 100)
+    @Column(length = 100)
     private String password;
 
-    @Column(unique=true, length = 4)
+    @Column(unique=true, length = 20)
     private String realName;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id")
+    private Team team;
+
     @Builder
-    public User(String username, String password, String realName) {
+    public User(String username, String password, String realName, Team team) {
         this.username = username;
         this.password = password;
         this.realName = realName;
+        this.team = team;
     }
 }

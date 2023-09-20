@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<style>
+    .fieldError {
+        border-color: #bd2130;
+    }
+</style>
+<body>
+
+<div class="container">
+
+    <form role="form" action="/users/new" th:object="${userForm}" method="post">
+        <div class="form-group">
+            <label th:for="name">사번</label>
+            <input type="text" th:field="*{username}" class="form-control" placeholder="사번을 입력하세요"
+                   th:class="${#fields.hasErrors('username')}? 'form-control fieldError' : 'form-control'">
+            <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Incorrect date</p>
+            <label th:for="name">패스워드</label>
+            <input type="text" th:field="*{password}" class="form-control" placeholder="이름을 입력하세요"
+                   th:class="${#fields.hasErrors('password')}? 'form-control fieldError' : 'form-control'">
+            <label th:for="name">이름</label>
+            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect date</p>
+            <input type="text" th:field="*{realName}" class="form-control" placeholder="이름을 입력하세요"
+                   th:class="${#fields.hasErrors('realName')}? 'form-control fieldError' : 'form-control'">
+            <p th:if="${#fields.hasErrors('realName')}" th:errors="*{realName}">Incorrect date</p>
+            <label th:for="name">소속 팀</label>
+            <select th:field="*{teamId}" th:class="${#fields.hasErrors('teamId')}? 'form-control fieldError' : 'form-control'">
+                <!-- 옵션들을 여기에 추가합니다. -->
+                <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.teamName}"></option>
+            </select>
+            <p th:if="${#fields.hasErrors('teamId')}" th:errors="*{teamId}">Incorrect date</p>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <br/>
+</div> <!-- /container -->
+
+</body>
+</html>
