@@ -4,16 +4,14 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.developx.proposal.domain.project.entity.Project;
 import org.developx.proposal.domain.user.data.enums.TeamType;
 import org.developx.proposal.domain.user.entity.Team;
 import org.developx.proposal.domain.user.entity.User;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -69,6 +67,8 @@ public class InitialDataLoad {
         em.persist(user3);
         em.persist(user4);
 
+        Project project = new Project("NH 채널 고도화", "NH 손해보험");
+        em.persist(project);
     }
 
 

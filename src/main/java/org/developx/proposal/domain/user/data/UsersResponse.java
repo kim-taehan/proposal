@@ -17,7 +17,6 @@ public record UsersResponse(
                 user.getRealName(),
                 BaseData.from(user),
                 TeamDto.from(user.getTeam())
-
         );
     }
 }
