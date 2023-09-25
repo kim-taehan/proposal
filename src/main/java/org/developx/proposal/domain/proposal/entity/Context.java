@@ -4,31 +4,36 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.developx.proposal.domain.project.data.enums.DocumentType;
-import org.developx.proposal.domain.project.entity.Project;
+import org.developx.proposal.domain.proposal.pdfbox.ShapeType;
 
 import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-public class Proposal {
+public class Context {
+
     @Id
     @GeneratedValue
-    @Column(name = "proposal_id")
+    @Column(name = "context_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "project_id")
-    private Project project;
+    @JoinColumn(name = "slide_id")
+    private Slide slide;
+
+    @Column(length = 255)
+    private String text;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 10)
-    private DocumentType documentType;
+    private ShapeType shapeType;
+
 
     @Builder
-    public Proposal(Project project, DocumentType documentType) {
-        this.project = project;
-        this.documentType = documentType;
+    public Context(Slide slide, String text, ShapeType shapeType) {
+        this.slide = slide;
+        this.text = text;
+        this.shapeType = shapeType;
     }
 }

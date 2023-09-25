@@ -27,3 +27,6 @@ spring:
         query.plan_parameter_metadata_max_size: 16
         format_sql: true
         default_batch_fetch_size: 100 # Detail 적용 @BatchSize(size=100)
+
+file:
+  dir: upload

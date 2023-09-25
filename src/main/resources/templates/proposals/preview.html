@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div>
+        <iframe
+                th:src="${pdfUrl}" width="1000" height="1000"></iframe>
+                <!--th:src="/proposals/download/${contextId}#page=${slideNumber}" -->
+
+    </div>
+</div> <!-- /container -->
+
+</body>
+</html>

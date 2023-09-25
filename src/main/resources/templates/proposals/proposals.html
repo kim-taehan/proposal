@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <!--    <div th:replace="fragments/bodyHeader :: bodyHeader" />-->
+    <div>
+
+        <form role="form" action="/proposals" th:object="${proposalsForm}" method="get">
+            <div class="form-group">
+                <input type="text" th:field="*{text}" class="form-control" placeholder="사번을 입력하세요"
+                       th:class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>projectName</th>
+                <th>documentType</th>
+                <th>shapeType</th>
+                <th>slideNumber</th>
+                <th>context</th>
+                <th>상세보기</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="context : ${contexts}">
+                <td th:text="${context.projectName}"></td>
+                <td th:text="${context.documentType}"></td>
+                <td th:text="${context.shapeType}"></td>
+                <td th:text="${context.slideNumber}"></td>
+                <td th:text="${context.context}"></td>
+                <td>
+                    <a href="#" th:href="@{/proposals/{contextId} (contextId=${context.contextId})}" class="btn btn-primary" role="button">자세히보기</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!--    <div th:replace="fragments/footer :: footer" />-->
+
+</div> <!-- /container -->
+
+</body>
+</html>

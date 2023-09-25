@@ -17,7 +17,6 @@ public class ProjectRepositoryImpl extends Querydsl4RepositorySupport implements
                 contentQuery -> contentQuery
                         .selectFrom(project)
                         .where(
-
                         )
         );
     }
