@@ -9,27 +9,22 @@
 <body>
 
 <div class="container">
-
-  <form role="form" action="/proposals/new" th:object="${createProposalForm}" method="post" enctype="multipart/form-data" >
+  <form role="form" action="/customers/new" th:object="${createProposalForm}" method="post" >
     <div class="form-group">
       <label th:for="documentType">프로젝트</label>
       <select th:field="*{projectId}" th:class="${#fields.hasErrors('projectId')}? 'form-control fieldError' : 'form-control'">
-        <!-- 옵션들을 여기에 추가합니다. -->
         <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.projectName}"></option>
       </select>
       <label th:for="documentType">문서형태</label>
       <select th:field="*{documentType}" th:class="${#fields.hasErrors('documentType')}? 'form-control fieldError' : 'form-control'">
-        <!-- 옵션들을 여기에 추가합니다. -->
         <option th:each="documentType : ${documentTypes}" th:value="${documentType.name}" th:text="${documentType.value}"></option>
       </select>
       <label for="files">업로드 문서</label>
       <input th:class="file-selector-button" type="file" id="files" multiple th:field="*{files}">
     </div>
-
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
   <br/>
 </div> <!-- /container -->
-
 </body>
 </html>

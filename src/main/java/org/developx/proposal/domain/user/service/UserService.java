@@ -31,7 +31,7 @@ public class UserService {
     }
 
     @Transactional
-    public void createUser(@Valid UserForm userForm) {
+    public void createUser(UserForm userForm) {
 
         Team team = teamService.findById(userForm.getTeamId())
                 .orElseThrow(IllegalArgumentException::new);

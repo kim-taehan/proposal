@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div>
+        <form role="form" action="/customers" th:object="${customersForm}" method="get">
+            <div class="form-group row">
+                <div class="col-2">
+                    <select th:field="*{customerType}" th:class="${#fields.hasErrors('customerType')}? 'form-control fieldError' : 'form-control'">
+                        <option th:each="customerType : ${customerTypes}" th:value="${customerType.name}" th:text="${customerType.text}"></option>
+                    </select>
+                </div>
+                <div class="col-6">
+                    <input type="text" th:field="*{customerName}" class="form-control" placeholder="고객사명을 입력하세요" th:class="form-control">
+                </div>
+                <div class="col-2">
+                </div>
+                <div class="col-2">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>고객사 유형</th>
+                <th>고객사 명</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="customer : ${customers}">
+                <td th:text="${customer.customerName}"></td>
+                <td th:text="${customer.customerType?.text}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:replace="fragments/footer :: footer" />
+</div>
+</body>
+</html>
