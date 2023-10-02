@@ -3,8 +3,6 @@ package org.developx.proposal.domain.customer.data.enums;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
-
 import static lombok.AccessLevel.PRIVATE;
 
 @Getter

@@ -3,7 +3,6 @@ package org.developx.proposal.web.customer;
 import org.developx.proposal.WebMvcTestSupport;
 import org.developx.proposal.domain.customer.data.enums.CustomerType;
 import org.developx.proposal.domain.customer.data.response.FindCustomersResponse;
-import org.developx.proposal.web.customer.data.CreateCustomerForm;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
