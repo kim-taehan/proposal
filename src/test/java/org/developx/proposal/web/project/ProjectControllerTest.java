@@ -1,18 +1,12 @@
 package org.developx.proposal.web.project;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import org.developx.proposal.WebMvcTestSupport;
-import org.developx.proposal.domain.customer.data.enums.CustomerType;
-import org.developx.proposal.domain.customer.data.response.FindCustomersResponse;
 import org.developx.proposal.domain.project.data.response.FindProjectsResponse;
-import org.developx.proposal.web.project.data.CreateProjectForm;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
