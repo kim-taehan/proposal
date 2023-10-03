@@ -3,6 +3,8 @@ package org.developx.proposal.web.project;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.developx.proposal.domain.customer.data.enums.CustomerType;
+import org.developx.proposal.domain.customer.service.CustomerService;
 import org.developx.proposal.domain.project.data.request.CreateProjectRequest;
 import org.developx.proposal.domain.project.data.response.FindProjectsResponse;
 import org.developx.proposal.domain.project.service.ProjectService;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class ProjectController {
 
     private final ProjectService projectService;
+    private final CustomerService customerService;
 
     @GetMapping("/projects")
     public String users(Model model, ProjectsForm projectsForm){
@@ -36,13 +39,17 @@ public class ProjectController {
 
     @GetMapping("/projects/new")
     public String createForm(Model model) {
-        model.addAttribute("createProjectForm", new CreateProjectForm());
+        model.addAttribute("createProjectForm", CreateProjectForm.getInstance());
+        model.addAttribute("customerTypes", CustomerType.values());
+        model.addAttribute("customers", customerService.findAll());
         return "projects/createProjectForm";
     }
 
     @PostMapping("/projects/new")
     public String create(@Valid CreateProjectForm createProjectForm, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("customerTypes", CustomerType.values());
+            model.addAttribute("customers", customerService.findAll());
             return "projects/createProjectForm";
         }
         CreateProjectRequest createProjectRequest = createProjectForm.toCreateProjectRequest();

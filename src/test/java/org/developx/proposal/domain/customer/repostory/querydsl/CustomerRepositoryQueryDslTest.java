@@ -22,7 +22,7 @@ import static org.developx.proposal.domain.customer.data.enums.CustomerType.*;
 @RequiredArgsConstructor
 @Transactional
 @DataJpaTest
-@DisplayName("[querydsl] CustomerRepositoryQueryDsl")
+@DisplayName("[querydsl] customer querydsl repository")
 class CustomerRepositoryQueryDslTest {
 
     @Autowired

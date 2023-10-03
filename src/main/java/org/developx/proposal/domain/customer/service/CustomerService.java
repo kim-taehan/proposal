@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Slf4j
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -19,6 +21,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
+
+    public Customer findById(long id) {
+        return customerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException());
+    }
+
+    public List<FindCustomersResponse> findAll() {
+        return customerRepository.findAll().stream().map(FindCustomersResponse::from).toList();
+    }
 
     public Page<FindCustomersResponse> findCustomers(FindCustomersRequest request, Pageable pageable) {
         return customerRepository.findCustomers(request, pageable)
@@ -30,7 +40,5 @@ public class CustomerService {
         customerRepository.save(request.toEntity());
     }
 
-    public Customer findById(long id) {
-        return customerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException());
-    }
+
 }

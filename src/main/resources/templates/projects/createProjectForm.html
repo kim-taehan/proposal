@@ -10,22 +10,49 @@
 
 <div class="container">
 
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <form role="form" action="/projects/new" th:object="${createProjectForm}" method="post">
-        <div class="form-group">
-            <label th:for="projectName">프로젝트명</label>
-            <input type="text" th:field="*{projectName}" class="form-control" placeholder="사번을 입력하세요"
-                   th:class="${#fields.hasErrors('projectName')}? 'form-control fieldError' : 'form-control'">
-            <p th:if="${#fields.hasErrors('projectName')}" th:errors="*{projectName}">Incorrect date</p>
-<!--            <label th:for="name">고객사명</label>-->
-<!--            <input type="text" th:field="*{customer}" class="form-control" placeholder="이름을 입력하세요"-->
-<!--                   th:class="${#fields.hasErrors('customer')}? 'form-control fieldError' : 'form-control'">-->
-<!--            <p th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}">Incorrect date</p>-->
+        <div class="form-group row">
+            <div class="col-2">
+                <label th:for="projectName">프로젝트 명</label>
+            </div>
+            <div class="col-4">
+                <input type="text" th:field="*{projectName}" class="form-control" placeholder="프로젝트명을 입력하세요"
+                       th:class="${#fields.hasErrors('projectName')}? 'form-control fieldError' : 'form-control'">
+                <p th:if="${#fields.hasErrors('projectName')}" th:errors="*{projectName}">Incorrect date</p>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label th:for="projectYear">프로젝트 년도</label>
+            </div>
+            <div class="col-4">
+                <input type="text" th:field="*{projectYear}" class="form-control" placeholder="프로젝트년도를 입력하세요"
+                       th:class="${#fields.hasErrors('projectYear')}? 'form-control fieldError' : 'form-control'">
+                <p th:if="${#fields.hasErrors('projectYear')}" th:errors="*{projectYear}">Incorrect date</p>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label th:for="projectYear">고객사</label>
+            </div>
+            <div class="col-2">
+                <select th:class="form-control">
+                    <option th:each="customerType : ${customerTypes}" th:value="${customerType.name}" th:text="${customerType.text}"></option>
+                </select>
+            </div>
+            <div class="col-6">
+                <select th:field="*{customerId}" th:class="${#fields.hasErrors('customerId')}? 'form-control fieldError' : 'form-control'">
+                    <option th:each="customer : ${customers}" th:value="${customer.customerId}" th:text="${customer.customerName}"></option>
+                </select>
+            </div>
 
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     <br/>
+    <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->
 
 </body>

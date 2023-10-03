@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.developx.proposal.domain.customer.data.enums.CustomerType.BANK;
 import static org.developx.proposal.domain.customer.data.enums.CustomerType.INSURANCE;
 
-@DisplayName("[querydsl] ProjectRepositoryQueryDsl")
+@DisplayName("[querydsl] project querydsl repository")
 class ProjectRepositoryQueryDslTest extends DataJpaTestSupport {
 
     @Autowired
