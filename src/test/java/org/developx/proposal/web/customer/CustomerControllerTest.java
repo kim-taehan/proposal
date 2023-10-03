@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-@DisplayName("[controller] CustomerController")
+@DisplayName("[controller] customer controller")
 class CustomerControllerTest extends WebMvcTestSupport {
 
     @DisplayName("등록된 고객사 리스트를 조회한다.")

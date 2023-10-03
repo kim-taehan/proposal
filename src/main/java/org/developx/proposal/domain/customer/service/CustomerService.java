@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.developx.proposal.domain.customer.data.request.CreateCustomerRequest;
 import org.developx.proposal.domain.customer.data.request.FindCustomersRequest;
 import org.developx.proposal.domain.customer.data.response.FindCustomersResponse;
+import org.developx.proposal.domain.customer.entity.Customer;
 import org.developx.proposal.domain.customer.repostory.CustomerRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,4 +30,7 @@ public class CustomerService {
         customerRepository.save(request.toEntity());
     }
 
+    public Customer findById(long id) {
+        return customerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException());
+    }
 }

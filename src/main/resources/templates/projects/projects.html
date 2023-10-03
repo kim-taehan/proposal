@@ -4,26 +4,38 @@
 <body>
 
 <div class="container">
-    <!--    <div th:replace="fragments/bodyHeader :: bodyHeader" />-->
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
+        <form role="form" action="/projects" th:object="${projectsForm}" method="get">
+            <div class="form-group row">
+                <div class="col-6">
+                    <input type="text" th:field="*{projectName}" class="form-control" placeholder="프로젝트명을 입력하세요" th:class="form-control">
+                </div>
+                <div class="col-4">
+                </div>
+                <div class="col-2">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
         <table class="table table-striped">
             <thead>
             <tr>
                 <th>프로젝트명</th>
                 <th>고객사</th>
+                <th>고객사 유형</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="project : ${projects}">
                 <td th:text="${project.projectName}"></td>
-                <td th:text="${project.customer}"></td>
+                <td th:text="${project.customer?.customerName}"></td>
+                <td th:text="${project.customer?.customerType?.text}"></td>
             </tr>
             </tbody>
         </table>
     </div>
-
-    <!--    <div th:replace="fragments/footer :: footer" />-->
-
+    <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->
 
 </body>

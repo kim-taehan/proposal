@@ -5,6 +5,7 @@ import org.developx.proposal.domain.customer.data.enums.CustomerType;
 import org.developx.proposal.domain.customer.data.request.FindCustomersRequest;
 import org.developx.proposal.domain.customer.entity.Customer;
 import org.developx.proposal.global.infra.Querydsl4RepositorySupport;
+import org.developx.proposal.global.utils.QueryDslUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.util.ObjectUtils;
@@ -30,7 +31,7 @@ public class CustomerRepositoryImpl extends Querydsl4RepositorySupport implement
     }
 
     private static BooleanExpression customerNameLike(String customerName) {
-        return StringUtils.hasText(customerName) ? customer.customerName.like(String.format("%%%s%%", customerName)) : null;
+        return StringUtils.hasText(customerName) ? customer.customerName.like(QueryDslUtils.makeLikeText(customerName)) : null;
     }
 
     private static BooleanExpression customerTypeEq(CustomerType customerType) {
