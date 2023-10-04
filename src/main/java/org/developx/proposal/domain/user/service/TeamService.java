@@ -19,8 +19,8 @@ public class TeamService {
 
     private final TeamRepository teamRepository;
 
-    public Optional<Team> findById(long teamId) {
-        return teamRepository.findById(teamId);
+    public Team findById(long teamId) {
+        return teamRepository.findById(teamId).orElseThrow(() -> new IllegalArgumentException());
     }
 
     public List<TeamDto> findAllTeam() {

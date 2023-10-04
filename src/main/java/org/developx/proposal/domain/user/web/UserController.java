@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.developx.proposal.domain.user.data.UserForm;
 import org.developx.proposal.domain.user.service.TeamService;
 import org.developx.proposal.domain.user.service.UserService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,7 +23,7 @@ public class UserController {
 
     @GetMapping("/users")
     public String users(Model model){
-        model.addAttribute("users", userService.findUsers());
+        model.addAttribute("users", userService.findUsers(null, Pageable.ofSize(10)));
         return "users/users";
     }
 
@@ -39,7 +40,7 @@ public class UserController {
             model.addAttribute("teams", teamService.findAllTeam());
             return "users/createUserForm";
         }
-        userService.createUser(userForm);
+        userService.createUser(userForm.toCreateUserRequest());
         return "redirect:/";
     }
 }

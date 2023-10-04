@@ -1,17 +1,19 @@
 package org.developx.proposal.domain.user.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.developx.proposal.global.infra.jpa.BaseEntity;
 
-import static lombok.AccessLevel.*;
+import java.util.regex.Pattern;
+
+import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = PROTECTED)
+@Table(name = "users")
 public class User extends BaseEntity {
 
     @Id
@@ -36,9 +38,16 @@ public class User extends BaseEntity {
 
     @Builder
     public User(String username, String password, String realName, Team team) {
+        if (!checkUsernameValidation(username)) {
+            throw new IllegalArgumentException("username 은 숫자만 5자리를 입력받아야 합니다.");
+        }
         this.username = username;
         this.password = password;
         this.realName = realName;
         this.team = team;
+    }
+
+    private static boolean checkUsernameValidation(String username) {
+        return username.length() == 5 && Pattern.matches("^[\\d]*$", username);
     }
 }

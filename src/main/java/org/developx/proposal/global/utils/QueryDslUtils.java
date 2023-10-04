@@ -1,5 +1,8 @@
 package org.developx.proposal.global.utils;
 
+import org.springframework.util.NumberUtils;
+import org.springframework.util.ObjectUtils;
+
 public final class QueryDslUtils {
 
     private QueryDslUtils() {
@@ -8,5 +11,9 @@ public final class QueryDslUtils {
 
     public static String makeLikeText(String text) {
         return String.format("%%%s%%", text);
+    }
+
+    public static <T extends Number> boolean positive(T number) {
+        return !ObjectUtils.isEmpty(number) && number.intValue() >= 0;
     }
 }
