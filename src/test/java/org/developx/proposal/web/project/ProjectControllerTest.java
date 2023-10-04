@@ -25,6 +25,8 @@ class ProjectControllerTest extends WebMvcTestSupport {
         Page<FindProjectsResponse> result = Page.empty();
         when(projectService.findProjects(any(), any())).thenReturn(result);
 
+        // when
+        // then
         mockMvc.perform(get("/projects")
                         .queryParam("projectName", "")
                 )

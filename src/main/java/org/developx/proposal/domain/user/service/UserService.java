@@ -2,7 +2,6 @@ package org.developx.proposal.domain.user.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.developx.proposal.domain.user.data.UserForm;
 import org.developx.proposal.domain.user.data.UsersResponse;
 import org.developx.proposal.domain.user.data.request.CreateUserRequest;
 import org.developx.proposal.domain.user.data.request.FindUsersRequest;

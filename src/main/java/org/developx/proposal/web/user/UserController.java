@@ -1,11 +1,14 @@
-package org.developx.proposal.domain.user.web;
+package org.developx.proposal.web.user;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.developx.proposal.domain.user.data.UserForm;
+import org.developx.proposal.domain.user.data.UsersResponse;
+import org.developx.proposal.web.user.data.CreateUserForm;
 import org.developx.proposal.domain.user.service.TeamService;
 import org.developx.proposal.domain.user.service.UserService;
+import org.developx.proposal.web.user.data.UsersForm;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,25 +25,29 @@ public class UserController {
     private final TeamService teamService;
 
     @GetMapping("/users")
-    public String users(Model model){
-        model.addAttribute("users", userService.findUsers(null, Pageable.ofSize(10)));
+    public String users(@Valid UsersForm usersForm, Model model){
+        Page<UsersResponse> users = userService.findUsers(
+                usersForm.toFindUserRequest(),
+                Pageable.ofSize(10)
+        );
+        model.addAttribute("users", users);
         return "users/users";
     }
 
     @GetMapping("/users/new")
     public String createForm(Model model) {
-        model.addAttribute("userForm", new UserForm());
+        model.addAttribute("createUserForm", CreateUserForm.getInstance());
         model.addAttribute("teams", teamService.findAllTeam());
         return "users/createUserForm";
     }
 
     @PostMapping("/users/new")
-    public String create(@Valid UserForm userForm, BindingResult bindingResult, Model model) {
+    public String create(@Valid CreateUserForm createUserForm, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("teams", teamService.findAllTeam());
             return "users/createUserForm";
         }
-        userService.createUser(userForm.toCreateUserRequest());
+        userService.createUser(createUserForm.toCreateUserRequest());
         return "redirect:/";
     }
 }
