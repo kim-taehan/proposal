@@ -4,12 +4,16 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.developx.proposal.domain.user.data.UsersResponse;
+import org.developx.proposal.global.security.CustomUserDetails;
+import org.developx.proposal.global.security.annotation.AdminAuthorize;
 import org.developx.proposal.web.user.data.CreateUserForm;
 import org.developx.proposal.domain.user.service.TeamService;
 import org.developx.proposal.domain.user.service.UserService;
 import org.developx.proposal.web.user.data.UsersForm;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,7 +29,7 @@ public class UserController {
     private final TeamService teamService;
 
     @GetMapping("/users")
-    public String users(@Valid UsersForm usersForm, Model model){
+    public String users(@Valid UsersForm usersForm, Model model, @AuthenticationPrincipal CustomUserDetails userDetails){
         Page<UsersResponse> users = userService.findUsers(
                 usersForm.toFindUserRequest(),
                 Pageable.ofSize(10)

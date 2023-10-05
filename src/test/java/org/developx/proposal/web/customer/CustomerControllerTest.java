@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -50,13 +51,12 @@ class CustomerControllerTest extends WebMvcTestSupport {
     @Test
     void createCustomer() throws Exception {
         // given
-
         // when
         // then
         mockMvc.perform(post("/customers/new")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("customerName", "테스트고객")
-                        .param("customerType", CustomerType.BANK.name())
+                        .param("customerType", CustomerType.BANK.name()).with(csrf())
                 )
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
@@ -72,7 +72,7 @@ class CustomerControllerTest extends WebMvcTestSupport {
         mockMvc.perform(post("/customers/new")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("customerName", "")
-                        .param("customerType", CustomerType.BANK.name())
+                        .param("customerType", CustomerType.BANK.name()).with(csrf())
                 )
                 .andDo(print())
                 .andExpect(status().isOk()) // 리다이렉트 수행됨
@@ -88,13 +88,11 @@ class CustomerControllerTest extends WebMvcTestSupport {
         // then
         mockMvc.perform(post("/customers/new")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .param("customerName", "테스트고객")
+                        .param("customerName", "테스트고객").with(csrf())
                 )
                 .andDo(print())
                 .andExpect(status().isOk()) // 리다이렉트 수행됨
                 .andExpect(model().errorCount(1))
                 .andExpect(model().attributeHasFieldErrorCode("createCustomerForm", "customerType", "NotNull"));
     }
-
-
 }

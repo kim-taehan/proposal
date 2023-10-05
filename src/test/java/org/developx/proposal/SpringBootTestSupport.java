@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @ActiveProfiles("test")
 public abstract class SpringBootTestSupport {
-
     @PersistenceContext
     protected EntityManager entityManager;
 }

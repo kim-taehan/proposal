@@ -8,12 +8,14 @@ import org.springframework.http.MediaType;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@DisplayName("[controller] user controller")
 class UserControllerTest extends WebMvcTestSupport {
 
     @DisplayName("등록된 사용자 리스트를 조회한다.")
@@ -53,6 +55,7 @@ class UserControllerTest extends WebMvcTestSupport {
                         .param("password", "test")
                         .param("realName", "테스트고객")
                         .param("teamId", "100")
+                        .with(csrf())
                 )
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
@@ -70,6 +73,7 @@ class UserControllerTest extends WebMvcTestSupport {
                         .param("password", "test")
                         .param("realName", "테스트고객")
                         .param("teamId", "100")
+                        .with(csrf())
                 )
                 .andDo(print())
                 .andExpect(status().isOk()) // 리다이렉트 수행됨
@@ -85,6 +89,7 @@ class UserControllerTest extends WebMvcTestSupport {
         // then
         mockMvc.perform(post("/users/new")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .with(csrf())
                 )
                 .andDo(print())
                 .andExpect(status().isOk()) // 리다이렉트 수행됨
@@ -107,6 +112,7 @@ class UserControllerTest extends WebMvcTestSupport {
                         .param("password", "test")
                         .param("realName", "테스트고객")
                         .param("teamId", "-100")
+                        .with(csrf())
                 )
                 .andDo(print())
                 .andExpect(status().isOk()) // 리다이렉트 수행됨

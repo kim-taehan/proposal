@@ -1,7 +1,10 @@
 package org.developx.proposal.global.infra.jpa;
 
 import lombok.RequiredArgsConstructor;
+import org.developx.proposal.global.security.CustomUserDetails;
 import org.springframework.data.domain.AuditorAware;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -15,7 +18,9 @@ public class SpringSecurityAuditorAware implements AuditorAware<String> {
 
     @Override
     public Optional<String> getCurrentAuditor() {
-        return Optional.empty();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+        return Optional.ofNullable(authentication.getName());
     }
 
 }

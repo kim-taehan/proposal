@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -55,6 +56,7 @@ class ProjectControllerTest extends WebMvcTestSupport {
                         .param("projectName", "테스트고객")
                         .param("projectYear", "2023")
                         .param("customerId", "1")
+                        .with(csrf())
                 )
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
@@ -71,6 +73,7 @@ class ProjectControllerTest extends WebMvcTestSupport {
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("projectYear", "2023")
                         .param("customerId", "1")
+                        .with(csrf())
                 )
                 .andDo(print())
                 .andExpect(status().isOk()) // 리다이렉트 수행됨
@@ -87,6 +90,7 @@ class ProjectControllerTest extends WebMvcTestSupport {
         mockMvc.perform(post("/projects/new")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("projectName", "테스트고객")
+                        .with(csrf())
                 )
                 .andDo(print())
                 .andExpect(status().isOk()) // 리다이렉트 수행됨

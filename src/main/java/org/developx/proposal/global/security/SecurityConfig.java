@@ -1,34 +1,18 @@
 package org.developx.proposal.global.security;
 
-import jakarta.servlet.DispatcherType;
-import org.developx.proposal.web.user.data.TokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static jakarta.servlet.DispatcherType.*;
-import static org.springframework.security.config.Customizer.withDefaults;
+import static jakarta.servlet.DispatcherType.FORWARD;
 
 @EnableWebSecurity
 @EnableMethodSecurity
 @Configuration
 public class SecurityConfig {
-    private final TokenProvider tokenProvider;
-
-    public SecurityConfig(TokenProvider tokenProvider) {
-        this.tokenProvider = tokenProvider;
-    }
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -37,7 +21,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
 
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-                        .requestMatchers("/images/**", "/css/**").permitAll()
+                        .requestMatchers("/images/**", "/css/**", "/users/**").permitAll()
                         .dispatcherTypeMatchers(FORWARD).permitAll()
                         // 어떠한 요청이라도 인증필요
                         .anyRequest().authenticated()
@@ -49,9 +33,7 @@ public class SecurityConfig {
                         .passwordParameter("password")
                         .defaultSuccessUrl("/", true)
                         .permitAll()
-                )
-                .logout(withDefaults());
-//                .apply(new JwtSecurityConfig(tokenProvider));
+                );
 
         return http.build();
     }
