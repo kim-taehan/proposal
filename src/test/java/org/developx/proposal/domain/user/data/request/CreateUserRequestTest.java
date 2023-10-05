@@ -36,12 +36,12 @@ class CreateUserRequestTest extends SpringBootTestSupport {
                 .build();
 
         // when
-        User user = request.toEntity(team);
+        User user = request.toEntity(team, passwordEncoder);
 
         // then
         assertThat(user).isNotNull()
-                .extracting("username", "password", "realName", "team")
-                .contains(request.username(), request.password(), request.realName(), team);
+                .extracting("username", "realName", "team")
+                .contains(request.username(), request.realName(), team);
 
     }
 }

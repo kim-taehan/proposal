@@ -79,8 +79,8 @@ class UserServiceTest extends SpringBootTestSupport {
 
         // then
         assertThat(userRepository.findAll()).hasSize(1)
-                .extracting("username", "password", "realName", "team")
-                .contains(Tuple.tuple(request.username(), request.password(), request.realName(), team1));
+                .extracting("username", "realName", "team")
+                .contains(Tuple.tuple(request.username(), request.realName(), team1));
     }
 
     @NotNull

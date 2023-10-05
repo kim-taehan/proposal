@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@DisplayName("[controller] customer controller")
+@DisplayName("[controller] project controller")
 class ProjectControllerTest extends WebMvcTestSupport {
 
     @DisplayName("등록된 프로젝트 리스트를 조회한다.")

@@ -3,6 +3,7 @@ package org.developx.proposal.domain.user.data.request;
 import lombok.Builder;
 import org.developx.proposal.domain.user.entity.Team;
 import org.developx.proposal.domain.user.entity.User;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 public record CreateUserRequest(String username, String password, String realName, long teamId) {
 
@@ -14,10 +15,10 @@ public record CreateUserRequest(String username, String password, String realNam
         this.teamId = teamId;
     }
 
-    public User toEntity(Team team) {
+    public User toEntity(Team team, PasswordEncoder passwordEncoder) {
         return User.builder()
                 .username(username)
-                .password(password)
+                .password(passwordEncoder.encode(password))
                 .realName(realName)
                 .team(team)
                 .build();

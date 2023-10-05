@@ -10,6 +10,7 @@ import org.developx.proposal.domain.user.entity.User;
 import org.developx.proposal.domain.user.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final TeamService teamService;
+    private final PasswordEncoder passwordEncoder;
 
     public Page<UsersResponse> findUsers(FindUsersRequest request, Pageable pageable) {
         Page<User> users = userRepository.findUsers(request, pageable);
@@ -30,7 +32,7 @@ public class UserService {
     @Transactional
     public void createUser(CreateUserRequest request) {
         Team team = teamService.findById(request.teamId());
-        User user = request.toEntity(team);
+        User user = request.toEntity(team, passwordEncoder);
         userRepository.save(user);
     }
 }
