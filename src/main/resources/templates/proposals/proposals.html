@@ -4,9 +4,8 @@
 <body>
 
 <div class="container">
-    <!--    <div th:replace="fragments/bodyHeader :: bodyHeader" />-->
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
-
         <form role="form" action="/proposals" th:object="${proposalsForm}" method="get">
             <div class="form-group">
                 <input type="text" th:field="*{text}" class="form-control" placeholder="사번을 입력하세요"
@@ -39,9 +38,7 @@
             </tbody>
         </table>
     </div>
-
-    <!--    <div th:replace="fragments/footer :: footer" />-->
-
+    <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->
 
 </body>

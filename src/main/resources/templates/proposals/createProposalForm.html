@@ -9,11 +9,11 @@
 <body>
 
 <div class="container">
-  <form role="form" action="/customers/new" th:object="${createProposalForm}" method="post" >
+  <form role="form" action="/proposals/new" th:object="${createProposalForm}" method="post" >
     <div class="form-group">
       <label th:for="documentType">프로젝트</label>
       <select th:field="*{projectId}" th:class="${#fields.hasErrors('projectId')}? 'form-control fieldError' : 'form-control'">
-        <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.projectName}"></option>
+        <option th:each="project : ${projects}" th:value="${project.projectId}" th:text="${project.projectName}"></option>
       </select>
       <label th:for="documentType">문서형태</label>
       <select th:field="*{documentType}" th:class="${#fields.hasErrors('documentType')}? 'form-control fieldError' : 'form-control'">

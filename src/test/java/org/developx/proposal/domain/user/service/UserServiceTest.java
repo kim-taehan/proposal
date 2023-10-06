@@ -2,11 +2,15 @@ package org.developx.proposal.domain.user.service;
 
 import org.assertj.core.groups.Tuple;
 import org.developx.proposal.SpringBootTestSupport;
-import org.developx.proposal.domain.user.data.UsersResponse;
 import org.developx.proposal.domain.user.data.request.CreateUserRequest;
 import org.developx.proposal.domain.user.data.request.FindUsersRequest;
+import org.developx.proposal.domain.user.data.response.FindUserResponse;
+import org.developx.proposal.domain.user.data.response.UsersResponse;
+import org.developx.proposal.domain.user.entity.Privacy;
 import org.developx.proposal.domain.user.entity.Team;
 import org.developx.proposal.domain.user.entity.User;
+import org.developx.proposal.domain.user.entity.enums.Gender;
+import org.developx.proposal.domain.user.repository.PrivacyRepository;
 import org.developx.proposal.domain.user.repository.TeamRepository;
 import org.developx.proposal.domain.user.repository.UserRepository;
 import org.jetbrains.annotations.NotNull;
@@ -16,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -30,19 +35,21 @@ class UserServiceTest extends SpringBootTestSupport {
     private UserRepository userRepository;
     @Autowired
     private TeamRepository teamRepository;
+    @Autowired
+    private PrivacyRepository privacyRepository;
 
     @DisplayName("사용자 조회시 조건 없는 경우 전체가 조회된다.")
     @Test
     void findUsers(){
         // given
-        Team team1 = createTeamForTest("test team1");
-        Team team2 = createTeamForTest("test team2");
+        Team team1 = createUserForTest("test team1");
+        Team team2 = createUserForTest("test team2");
 
         final String password = UUID.randomUUID().toString();
-        createTeamForTest("00001", "홍길동", password, team1);
-        createTeamForTest("00002", "류관순", password, team1);
-        createTeamForTest("00003", "장길산", password, team1);
-        createTeamForTest("00004", "임꺽정", password, team2);
+        createUserForTest("00001", "홍길동", password, team1, null);
+        createUserForTest("00002", "류관순", password, team1, null);
+        createUserForTest("00003", "장길산", password, team1, null);
+        createUserForTest("00004", "임꺽정", password, team2, null);
 
         FindUsersRequest request = FindUsersRequest.builder().build();
 
@@ -64,7 +71,7 @@ class UserServiceTest extends SpringBootTestSupport {
     @Test
     void createUser(){
         // given
-        Team team1 = createTeamForTest("test team1");
+        Team team1 = createUserForTest("test team1");
         final String password = UUID.randomUUID().toString();
 
         CreateUserRequest request = CreateUserRequest.builder()
@@ -84,7 +91,7 @@ class UserServiceTest extends SpringBootTestSupport {
     }
 
     @NotNull
-    private Team createTeamForTest(String teamName) {
+    private Team createUserForTest(String teamName) {
         return teamRepository.save(
                 Team.builder()
                         .teamName(teamName)
@@ -111,15 +118,69 @@ class UserServiceTest extends SpringBootTestSupport {
 
     }
 
-    private void createTeamForTest(String username, String realName, String password, Team team) {
-        userRepository.save(
+    private User createUserForTest(String username, String realName, String password, Team team, Privacy privacy) {
+        return userRepository.save(
                 User.builder()
                         .username(username)
                         .realName(realName)
                         .password(password)
                         .team(team)
+                        .privacy(privacy)
                         .build()
         );
+    }
+
+    @DisplayName("사용자 ID로 개인정보, 팀정보등도 같이 조회한다.")
+    @Test
+    void findUser(){
+        // given
+        final String password = UUID.randomUUID().toString();
+        Team team = createUserForTest("test team");
+        Privacy privacy = privacyRepository.save(Privacy.builder()
+                .birth(LocalDate.of(1999, 12, 31))
+                .email("admin@sk.com")
+                .gender(Gender.MALE)
+                .mobile("01012345678")
+                .address("서울시 강남구")
+                .build());
+        User user = createUserForTest("00001", "홍길동", password, team, privacy);
+        entityManager.flush();
+        entityManager.clear();
+
+        // when
+        FindUserResponse findUserResponse = userService.findUser(user.getId());
+
+        // then
+        assertThat(findUserResponse).isNotNull()
+                .extracting("username", "realName",
+                        "team.teamName", "team.teamId",
+                        "privacy.privacyId", "privacy.address", "privacy.birth", "privacy.email", "privacy.gender", "privacy.mobile")
+                .contains(user.getUsername(), user.getRealName(),
+                        team.getTeamName(), team.getId(),
+                        privacy.getId(), privacy.getAddress(), privacy.getBirth(), privacy.getEmail(), privacy.getGender(), privacy.getMobile()
+                );
+    }
+
+    @DisplayName("사용자 ID로 상세 조회시 개인정보가 없는 경우에 애러가 발생하지 않는다.")
+    @Test
+    void findUserNoPrivacy(){
+        // given
+        final String password = UUID.randomUUID().toString();
+        Team team = createUserForTest("test team");
+                        User user = createUserForTest("00001", "홍길동", password, team, null);
+        entityManager.flush();
+        entityManager.clear();
+
+        // when
+        FindUserResponse findUserResponse = userService.findUser(user.getId());
+
+        // then
+        assertThat(findUserResponse).isNotNull()
+                .extracting("username", "realName",
+                        "team.teamName", "team.teamId")
+                .contains(user.getUsername(), user.getRealName(),
+                        team.getTeamName(), team.getId()
+                );
     }
 
 

@@ -1,4 +1,4 @@
-package org.developx.proposal.domain.user.data.enums;
+package org.developx.proposal.domain.user.entity.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

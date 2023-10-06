@@ -2,7 +2,8 @@ package org.developx.proposal.domain.user.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.developx.proposal.domain.user.data.UsersResponse;
+import org.developx.proposal.domain.user.data.response.FindUserResponse;
+import org.developx.proposal.domain.user.data.response.UsersResponse;
 import org.developx.proposal.domain.user.data.request.CreateUserRequest;
 import org.developx.proposal.domain.user.data.request.FindUsersRequest;
 import org.developx.proposal.domain.user.entity.Team;
@@ -24,6 +25,11 @@ public class UserService {
     private final TeamService teamService;
     private final PasswordEncoder passwordEncoder;
 
+    public User findById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException());
+    }
+
     public Page<UsersResponse> findUsers(FindUsersRequest request, Pageable pageable) {
         Page<User> users = userRepository.findUsers(request, pageable);
         return users.map(UsersResponse::from);
@@ -34,5 +40,9 @@ public class UserService {
         Team team = teamService.findById(request.teamId());
         User user = request.toEntity(team, passwordEncoder);
         userRepository.save(user);
+    }
+
+    public FindUserResponse findUser(Long userId) {
+        return FindUserResponse.from(userRepository.findByUser(userId));
     }
 }

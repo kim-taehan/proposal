@@ -1,7 +1,7 @@
 package org.developx.proposal.global.security;
 
 import org.developx.proposal.SpringBootTestSupport;
-import org.developx.proposal.domain.user.data.enums.Role;
+import org.developx.proposal.domain.user.entity.enums.Role;
 import org.developx.proposal.domain.user.entity.User;
 import org.developx.proposal.domain.user.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;

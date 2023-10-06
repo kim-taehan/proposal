@@ -1,8 +1,7 @@
 package org.developx.proposal.global.security;
 
-import org.assertj.core.api.Assertions;
 import org.developx.proposal.SpringBootTestSupport;
-import org.developx.proposal.domain.user.data.enums.Role;
+import org.developx.proposal.domain.user.entity.enums.Role;
 import org.developx.proposal.domain.user.entity.User;
 import org.developx.proposal.domain.user.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -10,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.Set;
 
 import static org.assertj.core.api.Assertions.*;
 

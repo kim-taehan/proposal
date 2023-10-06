@@ -12,7 +12,8 @@
                 <th>사번</th>
                 <th>이름</th>
                 <th>팀</th>
-                <th>수정일</th>
+<!--                <th>수정일</th>-->
+                <th>상세보기</th>
             </tr>
             </thead>
             <tbody>
@@ -20,7 +21,10 @@
                 <td th:text="${user.username}"></td>
                 <td th:text="${user.realName}"></td>
                 <td th:text="${user.team?.teamName}"></td>
-                <td th:text="${user.baseData?.modifiedDate}"></td>
+<!--                <td th:text="${user.baseData?.modifiedDate}"></td>-->
+                <td>
+                    <a href="#" th:href="@{/users/{userId} (userId=${user.userId})}" class="btn btn-primary" role="button">상세보기</a>
+                </td>
             </tr>
             </tbody>
         </table>

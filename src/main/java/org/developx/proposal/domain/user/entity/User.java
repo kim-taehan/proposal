@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.developx.proposal.domain.user.data.enums.Role;
+import org.developx.proposal.domain.user.entity.enums.Role;
 import org.developx.proposal.global.infra.jpa.BaseEntity;
 
 import java.util.regex.Pattern;
@@ -41,8 +41,12 @@ public class User extends BaseEntity {
     @Column(length = 10)
     private Role role;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "privacy_id")
+    private Privacy privacy;
+
     @Builder
-    public User(String username, String password, String realName, Team team, Role role) {
+    public User(String username, String password, String realName, Team team, Role role, Privacy privacy) {
         if (!checkUsernameValidation(username)) {
             throw new IllegalArgumentException("username 은 숫자만 5자리를 입력받아야 합니다.");
         }
@@ -51,9 +55,11 @@ public class User extends BaseEntity {
         this.realName = realName;
         this.team = team;
         this.role = role;
+        this.privacy = privacy;
     }
 
     private static boolean checkUsernameValidation(String username) {
         return username.length() == 5 && Pattern.matches("^[\\d]*$", username);
     }
+
 }
