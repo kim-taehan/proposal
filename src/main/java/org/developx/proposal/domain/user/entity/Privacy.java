@@ -21,7 +21,7 @@ public class Privacy {
     @Column(name = "privacy_id")
     private Long id;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(length = 10)
     private Gender gender;
 

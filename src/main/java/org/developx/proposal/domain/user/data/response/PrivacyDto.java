@@ -29,6 +29,7 @@ public record PrivacyDto(
                 .gender(Gender.MALE)
                 .build();
     }
+
     public static PrivacyDto from(Privacy privacy) {
         if (privacy == null) {
             return getInstance();

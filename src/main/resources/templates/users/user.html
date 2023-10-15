@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+
+    <div class="row">
+        <div class="col-6" th:object="${user}">
+            <div class="row">
+                <div class="col-4">
+                    <label th:for="username">사번</label>
+                    <input type="text" th:field="*{username}" class="form-control" th:class="form-control" disabled>
+                </div>
+                <div class="col-4">
+                    <label th:for="realName">이름</label>
+                    <input type="text" th:field="*{realName}" class="form-control" th:class="form-control" disabled>
+                </div>
+                <div class="col-4">
+                    <label th:for="teamName">팀</label>
+                    <input type="text" th:field="*{team.teamName}" class="form-control" th:class="form-control" disabled>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <label th:for="gender">성별</label>
+                    <input type="text" th:field="*{privacy.gender.name}" class="form-control" th:class="form-control">
+                </div>
+                <div class="col-4">
+                    <label th:for="email">이메일</label>
+                    <input type="text" th:field="*{privacy.email}" class="form-control" th:class="form-control" >
+                </div>
+                <div class="col-4">
+                    <label th:for="email">전화번호</label>
+                    <input type="text" th:field="*{privacy.mobile}" class="form-control" th:class="form-control" >
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div th:replace="fragments/footer :: footer" />
+</div>
+</body>
+</html>

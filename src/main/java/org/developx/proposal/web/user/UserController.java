@@ -3,6 +3,7 @@ package org.developx.proposal.web.user;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.developx.proposal.domain.user.data.response.FindUserResponse;
 import org.developx.proposal.domain.user.data.response.UsersResponse;
 import org.developx.proposal.web.user.data.CreateUserForm;
 import org.developx.proposal.domain.user.service.TeamService;
@@ -52,10 +53,10 @@ public class UserController {
         return "redirect:/";
     }
 
-
     @GetMapping("/users/{userId}")
     public String findUser(@PathVariable("userId") Long userId, Model model){
-        userService.findUser(userId);
+        FindUserResponse findUserResponse = userService.findUser(userId);
+        model.addAttribute("user", findUserResponse);
         return "users/user";
     }
 }

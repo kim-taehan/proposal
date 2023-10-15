@@ -5,6 +5,7 @@ import org.developx.proposal.domain.user.entity.Privacy;
 import org.developx.proposal.domain.user.entity.Team;
 import org.developx.proposal.domain.user.entity.User;
 import org.developx.proposal.domain.user.entity.enums.Gender;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,14 +39,8 @@ class UserRepositoryTest extends DataJpaTestSupport {
                 .address("서울시 강남구")
                 .build()
         );
-        User user = userRepository.save(User.builder()
-                .username("00001")
-                .realName("홍길동")
-                .password(password)
-                .team(team)
-                .privacy(privacy)
-                .build()
-        );
+        User user = createUserForTest("00001", "홍길동", password, team, privacy);
+        createUserForTest("00002", "류관순", password, team, null);
 
         // when
         User findUser = userRepository.findByUser(user.getId());
@@ -59,6 +54,18 @@ class UserRepositoryTest extends DataJpaTestSupport {
                         team.getTeamName(), team.getId(),
                         privacy.getId(), privacy.getAddress(), privacy.getBirth(), privacy.getEmail(), privacy.getGender(), privacy.getMobile()
                 );
+    }
+
+    @NotNull
+    private User createUserForTest(String username, String realName, String password, Team team, Privacy privacy) {
+        return userRepository.save(User.builder()
+                .username(username)
+                .realName(realName)
+                .password(password)
+                .team(team)
+                .privacy(privacy)
+                .build()
+        );
     }
 
 
