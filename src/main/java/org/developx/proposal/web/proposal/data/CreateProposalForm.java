@@ -1,4 +1,4 @@
-package org.developx.proposal.domain.proposal.data;
+package org.developx.proposal.web.proposal.data;
 
 import lombok.Data;
 import org.developx.proposal.domain.project.data.enums.DocumentType;

@@ -1,4 +1,4 @@
-package org.developx.proposal.domain.proposal.web;
+package org.developx.proposal.web.proposal;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.developx.proposal.domain.project.data.enums.DocumentType;
 import org.developx.proposal.domain.project.service.ProjectService;
 import org.developx.proposal.domain.proposal.data.ContextDto;
-import org.developx.proposal.domain.proposal.data.CreateProposalForm;
+import org.developx.proposal.web.proposal.data.CreateProposalForm;
 import org.developx.proposal.domain.proposal.data.ProposalsForm;
 import org.developx.proposal.domain.proposal.service.ContextService;
 import org.developx.proposal.domain.proposal.service.ProposalService;

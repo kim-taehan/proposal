@@ -3,11 +3,14 @@ package org.developx.proposal;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.developx.proposal.domain.customer.service.CustomerService;
 import org.developx.proposal.domain.project.service.ProjectService;
+import org.developx.proposal.domain.proposal.service.ContextService;
+import org.developx.proposal.domain.proposal.service.ProposalService;
 import org.developx.proposal.domain.user.service.TeamService;
 import org.developx.proposal.domain.user.service.UserService;
 import org.developx.proposal.global.security.SecurityConfig;
 import org.developx.proposal.web.customer.CustomerController;
 import org.developx.proposal.web.project.ProjectController;
+import org.developx.proposal.web.proposal.ProposalController;
 import org.developx.proposal.web.user.UserController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -22,7 +25,8 @@ import org.springframework.test.web.servlet.MockMvc;
 @WebMvcTest(controllers = {
         CustomerController.class,
         ProjectController.class,
-        UserController.class
+        UserController.class,
+        ProposalController.class
 }
 //,excludeAutoConfiguration = SecurityAutoConfiguration.class
 )
@@ -38,6 +42,10 @@ public abstract class WebMvcTestSupport {
     protected ProjectService projectService;
     @MockBean
     protected UserService userService;
+    @MockBean
+    protected ProposalService proposalService;
+    @MockBean
+    protected ContextService contextService;
     @MockBean
     protected TeamService teamService;
 
