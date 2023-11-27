@@ -1,14 +1,20 @@
 package org.developx.proposal.web.proposal.data;
 
-import lombok.Data;
 import org.developx.proposal.domain.project.data.enums.DocumentType;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Collections;
 import java.util.List;
 
-@Data
-public class CreateProposalForm {
-    private DocumentType documentType;
-    private long projectId;
-    private List<MultipartFile> files;
+import static org.developx.proposal.domain.project.data.enums.DocumentType.*;
+
+public record CreateProposalForm (
+        DocumentType documentType,
+        long projectId,
+        List<MultipartFile> files
+) {
+
+    public static CreateProposalForm empty(){
+        return new CreateProposalForm(PROPOSAL, 0L, Collections.emptyList());
+    }
 }

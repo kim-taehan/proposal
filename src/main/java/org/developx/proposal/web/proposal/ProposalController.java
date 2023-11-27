@@ -7,7 +7,7 @@ import org.developx.proposal.domain.project.data.enums.DocumentType;
 import org.developx.proposal.domain.project.service.ProjectService;
 import org.developx.proposal.domain.proposal.data.ContextDto;
 import org.developx.proposal.web.proposal.data.CreateProposalForm;
-import org.developx.proposal.domain.proposal.data.ProposalsForm;
+import org.developx.proposal.web.proposal.data.ProposalsForm;
 import org.developx.proposal.domain.proposal.service.ContextService;
 import org.developx.proposal.domain.proposal.service.ProposalService;
 import org.springframework.stereotype.Controller;
@@ -31,7 +31,7 @@ public class ProposalController {
 
     @GetMapping("new")
     public String createForm(Model model) {
-        model.addAttribute("createProposalForm", new CreateProposalForm());
+        model.addAttribute("createProposalForm", CreateProposalForm.empty());
         model.addAttribute("projects", projectService.findAll());
         model.addAttribute("documentTypes", DocumentType.values());
         return "proposals/createProposalForm";
@@ -51,14 +51,13 @@ public class ProposalController {
 
     @GetMapping("")
     public String proposals(Model model, ProposalsForm proposalsForm) {
-        model.addAttribute("proposalsForm", new ProposalsForm());
-        model.addAttribute("contexts", contextService.findContexts(proposalsForm.getText()));
+        model.addAttribute("proposalsForm", new ProposalsForm(""));
+        model.addAttribute("contexts", contextService.findContexts(proposalsForm.text()));
         return "proposals/proposals";
     }
 
     @GetMapping("{contextId}")
     public String detail(@PathVariable("contextId") Long contextId, Model model) {
-
         ContextDto contextDto = contextService.findContext(contextId);
         model.addAttribute("pdfUrl", "/proposals/download/"+contextId+"#page="+(contextDto.slideNumber()-1));
         return "proposals/preview";

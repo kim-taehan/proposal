@@ -7,7 +7,6 @@ import java.nio.file.Path;
 public record ContextDto (
         long contextId,
         int slideNumber,
-
         Path pullPath
 )
 {

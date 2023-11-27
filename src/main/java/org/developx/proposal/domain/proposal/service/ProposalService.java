@@ -21,14 +21,14 @@ public class ProposalService {
     @Transactional
     public void createProposal(CreateProposalForm form) {
 
-        Project project = projectService.findById(form.getProjectId())
+        Project project = projectService.findById(form.projectId())
                 .orElseThrow(() -> new IllegalArgumentException());
         Proposal proposal = Proposal.builder()
-                .documentType(form.getDocumentType())
+                .documentType(form.documentType())
                 .project(project)
                 .build();
         proposalRepository.save(proposal);
-        for (MultipartFile file : form.getFiles()) {
+        for (MultipartFile file : form.files()) {
             documentService.saveDocument(proposal, file);
         }
 
