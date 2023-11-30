@@ -22,7 +22,7 @@ spring:
       #    open-in-view: false
     show-sql: false
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         query.in_clause_parameter_padding: true
@@ -36,6 +36,10 @@ spring:
       mode: ALWAYS
 file:
   dir: upload
+
+security:
+  headers:
+    frame: false
 
 ---
 spring:

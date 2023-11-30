@@ -31,7 +31,7 @@ public class ProposalController {
 
     @GetMapping("new")
     public String createForm(Model model) {
-        model.addAttribute("createProposalForm", CreateProposalForm.empty());
+        model.addAttribute("createProposalForm", CreateProposalForm.getInstance());
         model.addAttribute("projects", projectService.findAll());
         model.addAttribute("documentTypes", DocumentType.values());
         return "proposals/createProposalForm";
@@ -60,6 +60,7 @@ public class ProposalController {
     public String detail(@PathVariable("contextId") Long contextId, Model model) {
         ContextDto contextDto = contextService.findContext(contextId);
         model.addAttribute("pdfUrl", "/proposals/download/"+contextId+"#page="+(contextDto.slideNumber()-1));
+        //http://localhost:8081/proposals/download/1#toolbar=0&navpanes=0&scrollbar=0&page=12
         return "proposals/preview";
     }
 
@@ -78,7 +79,6 @@ public class ProposalController {
             while ((nRead = targetStream.read(data, 0, data.length)) != -1) {
                 outputStream.write(data, 0, nRead);
             }
-
         };
     }
 

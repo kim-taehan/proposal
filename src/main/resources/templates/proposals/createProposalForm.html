@@ -9,7 +9,7 @@
 <body>
 
 <div class="container">
-  <form role="form" action="/proposals/new" th:object="${createProposalForm}" method="post" >
+  <form role="form" action="/proposals/new" th:object="${createProposalForm}" method="post" enctype="multipart/form-data" >
     <div class="form-group">
       <label th:for="documentType">프로젝트</label>
       <select th:field="*{projectId}" th:class="${#fields.hasErrors('projectId')}? 'form-control fieldError' : 'form-control'">

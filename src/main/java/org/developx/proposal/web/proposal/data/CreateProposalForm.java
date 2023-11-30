@@ -13,8 +13,13 @@ public record CreateProposalForm (
         long projectId,
         List<MultipartFile> files
 ) {
+    public CreateProposalForm(DocumentType documentType, long projectId, List<MultipartFile> files) {
+        this.documentType = documentType;
+        this.projectId = projectId;
+        this.files = files;
+    }
 
-    public static CreateProposalForm empty(){
+    public static CreateProposalForm getInstance(){
         return new CreateProposalForm(PROPOSAL, 0L, Collections.emptyList());
     }
 }

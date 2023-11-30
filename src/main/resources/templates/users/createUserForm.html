@@ -48,7 +48,7 @@
             <div class="col-4">
                 <select th:field="*{teamId}" th:class="${#fields.hasErrors('teamId')}? 'form-control fieldError' : 'form-control'">
                     <!-- 옵션들을 여기에 추가합니다. -->
-                    <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.teamName}"></option>
+                    <option th:each="team : ${teams}" th:value="${team.teamId}" th:text="${team.teamName}"></option>
                 </select>
                 <p th:if="${#fields.hasErrors('teamId')}" th:errors="*{teamId}">Incorrect date</p>
             </div>

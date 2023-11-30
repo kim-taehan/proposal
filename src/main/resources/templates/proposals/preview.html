@@ -5,10 +5,9 @@
 
 <div class="container">
     <div>
-        <iframe
-                th:src="${pdfUrl}" width="1000" height="1000"></iframe>
-                <!--th:src="/proposals/download/${contextId}#page=${slideNumber}" -->
-
+        <iframe th:src="${pdfUrl}" width="1000" height="1000">
+        </iframe>
+<!--        <embed src="${pdfUrl}" type="application/pdf" />-->
     </div>
 </div> <!-- /container -->
 
