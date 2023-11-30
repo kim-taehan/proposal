@@ -30,6 +30,11 @@ public class UserService {
                 .orElseThrow(() -> new IllegalArgumentException());
     }
 
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException());
+    }
+
     public Page<UsersResponse> findUsers(FindUsersRequest request, Pageable pageable) {
         Page<User> users = userRepository.findUsers(request, pageable);
         return users.map(UsersResponse::from);
@@ -45,4 +50,6 @@ public class UserService {
     public FindUserResponse findUser(Long userId) {
         return FindUserResponse.from(userRepository.findByUser(userId));
     }
+
+
 }

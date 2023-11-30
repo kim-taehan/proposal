@@ -59,8 +59,8 @@ public class ProposalController {
     @GetMapping("{contextId}")
     public String detail(@PathVariable("contextId") Long contextId, Model model) {
         ContextDto contextDto = contextService.findContext(contextId);
-        model.addAttribute("pdfUrl", "/proposals/download/"+contextId+"#page="+(contextDto.slideNumber()-1));
-        //http://localhost:8081/proposals/download/1#toolbar=0&navpanes=0&scrollbar=0&page=12
+        model.addAttribute("pdfUrl", "/proposals/download/"+contextId+"#page="+(contextDto.slideNumber()-1) + "#toolbar=0&navpanes=0&scrollbar=0");
+
         return "proposals/preview";
     }
 

@@ -8,6 +8,7 @@ import org.apache.poi.xslf.usermodel.XSLFGroupShape;
 import org.apache.poi.xslf.usermodel.XSLFShape;
 import org.apache.poi.xslf.usermodel.XSLFTable;
 import org.apache.poi.xslf.usermodel.XSLFTextShape;
+import org.developx.proposal.domain.customer.entity.Customer;
 import org.developx.proposal.domain.proposal.entity.Context;
 import org.developx.proposal.domain.proposal.entity.Document;
 import org.developx.proposal.domain.proposal.entity.Slide;
@@ -28,6 +29,10 @@ public class SlideService {
 
     private final SlideRepository slideRepository;
     private final ContextRepository contextRepository;
+
+    public Slide findById(long id) {
+        return slideRepository.findById(id).orElseThrow(() -> new IllegalArgumentException());
+    }
 
     public void saveSlides(Document document) {
 

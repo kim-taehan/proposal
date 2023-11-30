@@ -67,6 +67,29 @@ class UserServiceTest extends SpringBootTestSupport {
                 );
     }
 
+    @DisplayName("username으로 사용자 정보를 조회할 수 있다.")
+    @Test
+    void findByUsername(){
+        // given
+        Team team1 = createUserForTest("test team1");
+        Team team2 = createUserForTest("test team2");
+
+        final String password = UUID.randomUUID().toString();
+        createUserForTest("00001", "홍길동", password, team1, null);
+        createUserForTest("00002", "류관순", password, team1, null);
+        createUserForTest("00003", "장길산", password, team1, null);
+        createUserForTest("00004", "임꺽정", password, team2, null);
+        
+        // when
+        User findUser = userService.findByUsername("00001");
+
+        // then
+        assertThat(findUser)
+                .extracting("username", "realName")
+                .contains("00001", "홍길동");
+    }
+
+
     @DisplayName("신규 사용자를 등록한다.")
     @Test
     void createUser(){

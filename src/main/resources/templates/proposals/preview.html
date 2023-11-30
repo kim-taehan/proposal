@@ -1,15 +1,43 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header" />
+<head  >
+    <script type="text/javascript">
+window.onload = function() {
+
+	var httpRequest;
+	// 호출 버튼을 클릭하였을 때, 데이터를 요청하고 받아오는 Ajax 구현 부분
+	document.getElementById("bookmarkButton").addEventListener('click', () => {
+
+		httpRequest = new XMLHttpRequest();
+	    httpRequest.onreadystatechange = () => {
+		    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+			      if (httpRequest.status === 200) {
+			    	  document.getElementById("memberTable").innerHTML = httpRequest.response;
+			      } else {
+			        alert('Request Error!');
+			      }
+		    }
+	    };
+	    httpRequest.open('POST', '/bookmarks/1');
+	    httpRequest.send();
+	});
+}
+</script>
+</head>
 <body>
 
+
+
 <div class="container">
-    <div>
+    <button id="bookmarkButton" th:fragment="bookmarkButton">북마크 추가하기</button>
+<!--    <div>-->
+        </br>
         <iframe th:src="${pdfUrl}" width="1000" height="1000">
         </iframe>
 <!--        <embed src="${pdfUrl}" type="application/pdf" />-->
-    </div>
+<!--    </div>-->
 </div> <!-- /container -->
 
 </body>
+
 </html>

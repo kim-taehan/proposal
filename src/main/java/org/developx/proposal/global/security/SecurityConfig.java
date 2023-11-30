@@ -30,7 +30,7 @@ public class SecurityConfig {
                         .requestMatchers("/images/**", "/css/**", "/users/**").permitAll()
                         .dispatcherTypeMatchers(FORWARD).permitAll()
                         // 어떠한 요청이라도 인증필요
-                        .anyRequest().permitAll()
+                        .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
                         .loginPage("/login")

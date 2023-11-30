@@ -13,30 +13,30 @@
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>projectName</th>
-                <th>documentType</th>
-                <th>shapeType</th>
-                <th>slideNumber</th>
-                <th>context</th>
-                <th>상세보기</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="context : ${contexts}">
-                <td th:text="${context.projectName}"></td>
-                <td th:text="${context.documentType}"></td>
-                <td th:text="${context.shapeType}"></td>
-                <td th:text="${context.slideNumber}"></td>
-                <td th:text="${context.context}"></td>
-                <td>
-                    <a href="#" th:href="@{/proposals/{contextId} (contextId=${context.contextId})}" class="btn btn-primary" role="button">자세히보기</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>projectName</th>
+                    <th>documentType</th>
+                    <th>shapeType</th>
+                    <th>slideNumber</th>
+                    <th>context</th>
+                    <th>상세보기</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="context : ${contexts}">
+                    <td th:text="${context.projectName}"></td>
+                    <td th:text="${context.documentType}"></td>
+                    <td th:text="${context.shapeType}"></td>
+                    <td th:text="${context.slideNumber}"></td>
+                    <td th:text="${context.context}"></td>
+                    <td>
+                        <a href="#" th:href="@{/proposals/{contextId} (contextId=${context.contextId})}" class="btn btn-primary" role="button">자세히보기</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
     </div>
     <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->

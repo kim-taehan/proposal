@@ -1,24 +1,21 @@
 package org.developx.proposal;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.developx.proposal.domain.bookmark.service.BookmarkService;
 import org.developx.proposal.domain.customer.service.CustomerService;
 import org.developx.proposal.domain.project.service.ProjectService;
 import org.developx.proposal.domain.proposal.service.ContextService;
 import org.developx.proposal.domain.proposal.service.ProposalService;
 import org.developx.proposal.domain.user.service.TeamService;
 import org.developx.proposal.domain.user.service.UserService;
-import org.developx.proposal.global.security.SecurityConfig;
+import org.developx.proposal.web.bookmark.BookmarkController;
 import org.developx.proposal.web.customer.CustomerController;
 import org.developx.proposal.web.project.ProjectController;
 import org.developx.proposal.web.proposal.ProposalController;
 import org.developx.proposal.web.user.UserController;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.FilterType;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -26,7 +23,8 @@ import org.springframework.test.web.servlet.MockMvc;
         CustomerController.class,
         ProjectController.class,
         UserController.class,
-        ProposalController.class
+        ProposalController.class,
+        BookmarkController.class
 }
 //,excludeAutoConfiguration = SecurityAutoConfiguration.class
 )
@@ -46,6 +44,8 @@ public abstract class WebMvcTestSupport {
     protected ProposalService proposalService;
     @MockBean
     protected ContextService contextService;
+    @MockBean
+    protected BookmarkService bookmarkService;
     @MockBean
     protected TeamService teamService;
 
