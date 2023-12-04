@@ -46,11 +46,8 @@ class ProposalControllerTest extends WebMvcTestSupport {
     @DisplayName("제안서 상세내역을 조회한다.")
     @Test
     void detail() throws Exception {
-        ContextDto contextDto = new ContextDto(1,
-                10,
-                Path.of("")
-        );
-        when(contextService.findContext(any())).thenReturn(contextDto);
+
+        when(contextService.findContext(any())).thenReturn(null);
 
         // when & then
         mockMvc.perform(get("/proposals/1")

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.developx.proposal.domain.bookmark.service.BookmarkService;
 import org.developx.proposal.domain.customer.service.CustomerService;
 import org.developx.proposal.domain.project.service.ProjectService;
-import org.developx.proposal.domain.proposal.service.ContextService;
+import org.developx.proposal.domain.proposal.service.ContextServiceImpl;
 import org.developx.proposal.domain.proposal.service.ProposalService;
 import org.developx.proposal.domain.user.service.TeamService;
 import org.developx.proposal.domain.user.service.UserService;
@@ -43,7 +43,7 @@ public abstract class WebMvcTestSupport {
     @MockBean
     protected ProposalService proposalService;
     @MockBean
-    protected ContextService contextService;
+    protected ContextServiceImpl contextService;
     @MockBean
     protected BookmarkService bookmarkService;
     @MockBean

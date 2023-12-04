@@ -30,7 +30,7 @@ public class User extends BaseEntity {
     @Column(length = 100)
     private String password;
 
-    @Column(unique=true, length = 20)
+    @Column(unique=true, length = 20, nullable = false)
     private String realName;
 
     @ManyToOne(fetch = FetchType.LAZY)

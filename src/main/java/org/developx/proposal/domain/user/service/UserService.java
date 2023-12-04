@@ -9,6 +9,7 @@ import org.developx.proposal.domain.user.data.request.FindUsersRequest;
 import org.developx.proposal.domain.user.entity.Team;
 import org.developx.proposal.domain.user.entity.User;
 import org.developx.proposal.domain.user.repository.UserRepository;
+import org.developx.proposal.global.infra.jpa.SpringSecurityAuditorAware;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +25,8 @@ public class UserService {
     private final UserRepository userRepository;
     private final TeamService teamService;
     private final PasswordEncoder passwordEncoder;
+
+    private final SpringSecurityAuditorAware auditorAware;
 
     public User findById(Long userId) {
         return userRepository.findById(userId)
@@ -50,6 +53,11 @@ public class UserService {
     public FindUserResponse findUser(Long userId) {
         return FindUserResponse.from(userRepository.findByUser(userId));
     }
-
+    
+    
+    public User findLoginUser() {
+        String username = auditorAware.getCurrentAuditor().orElseThrow(() -> new IllegalStateException("로그인정보를 확인할 수 없습니다."));
+        return findByUsername(username);
+    }
 
 }

@@ -22,11 +22,11 @@ public class Bookmark extends BaseEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "slide_id")
+    @JoinColumn(name = "slide_id", nullable = false)
     private Slide slide;
 
     @Column(length = 100)

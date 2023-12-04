@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+<body>
+
+
+
+<div class="container">
+        <div th:if="${bookmarkId} == 0">
+            <form role="form" action="/bookmarks/add" method="post">
+                <input hidden="true" name="slideId" th:value="${slideId}">
+                <button type="submit" class="btn btn-primary">북마크 추가하기</button>
+            </form>
+        </div>
+    <div th:if="${bookmarkId} > 0">
+        <form role="form" action="/bookmarks/remove" method="post">
+            <input hidden="true" name="slideId" th:value="${slideId}">
+            <input hidden="true" name="bookmarkId" th:value="${bookmarkId}">
+            <button type="submit" class="btn btn-primary">북마크 제거하기</button>
+        </form>
+    </div>
+        </br>
+
+        <iframe th:src="${pdfUrl}" width="1000" height="1000">
+        </iframe>
+</div>
+
+</body>
+
+</html>

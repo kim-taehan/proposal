@@ -29,7 +29,6 @@ class ProjectServiceTest extends SpringBootTestSupport {
     private CustomerRepository customerRepository;
     @Autowired
     private ProjectRepository projectRepository;
-
     @Autowired
     private ProjectService projectService;
 
