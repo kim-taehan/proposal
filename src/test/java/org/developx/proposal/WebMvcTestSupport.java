@@ -6,6 +6,7 @@ import org.developx.proposal.domain.customer.service.CustomerService;
 import org.developx.proposal.domain.project.service.ProjectService;
 import org.developx.proposal.domain.proposal.service.ContextServiceImpl;
 import org.developx.proposal.domain.proposal.service.ProposalService;
+import org.developx.proposal.domain.proposal.service.SlideService;
 import org.developx.proposal.domain.user.service.TeamService;
 import org.developx.proposal.domain.user.service.UserService;
 import org.developx.proposal.web.bookmark.BookmarkController;
@@ -42,6 +43,8 @@ public abstract class WebMvcTestSupport {
     protected UserService userService;
     @MockBean
     protected ProposalService proposalService;
+    @MockBean
+    protected SlideService slideService;
     @MockBean
     protected ContextServiceImpl contextService;
     @MockBean

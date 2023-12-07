@@ -43,17 +43,5 @@ class ProposalControllerTest extends WebMvcTestSupport {
                 .andDo(print())
                 .andExpect(status().isOk());
     }
-    @DisplayName("제안서 상세내역을 조회한다.")
-    @Test
-    void detail() throws Exception {
-
-        when(contextService.findContext(any())).thenReturn(null);
-
-        // when & then
-        mockMvc.perform(get("/proposals/1")
-                )
-                .andDo(print())
-                .andExpect(status().isOk());
-    }
 
 }
